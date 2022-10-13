@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    display:flex;
+    flex-direction: row;
+}
+
+.chooseDishes {
+    width: 50vw;
+    height: 100vh;
+    background-color: red;
+}
+
+.newRecipe {
+    width: 50vw;
+    height: 100vh;
+    background-color: chocolate;
+}
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inputIngredient {
+    width: 100px;
+}
