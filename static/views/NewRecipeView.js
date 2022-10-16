@@ -4,6 +4,11 @@ export default class NewRecipeView {
         this.listIngredientInput = []
         this.listRecipeStepsInput = []
 
+        
+        this.titleInput = null;
+        this.dureeInput = null;
+
+        this.titleAndDurationPart = this.basePart()
         this.ingredientsPart = this.addIngredientsPart()
         this.recipeStepsPart = this.addRecipePart()
 
@@ -48,10 +53,13 @@ export default class NewRecipeView {
         divContainer.innerHTML = `<p> Ingrédient ${i}`
 
         const input = document.createElement('input')
+        const inputQuantite = document.createElement('input')
         input.classList.add('inputIngredient')
-        this.listIngredientInput.push(input)
+        inputQuantite.classList.add('inputIngredientQuantite')
+        this.listIngredientInput.push({ingredient: input, quantite: inputQuantite})
 
         divContainer.appendChild(input)
+        divContainer.appendChild(inputQuantite)
         return divContainer
     }
 
@@ -61,13 +69,34 @@ export default class NewRecipeView {
 
         const input = document.createElement('input')
         input.classList.add('inputRecipeStep')
-        this.listRecipeStepsInput.push(input)
+        this.listRecipeStepsInput.push({etape: input})
 
         divContainer.appendChild(input)
         return divContainer
     }
 
+    basePart() {
+        const containerElement = document.createElement('div')
+
+        const titleP = document.createElement('P')
+        titleP.innerText = "Ajouter un titre"
+        const titleInput = document.createElement('input')
+        containerElement.appendChild(titleP)
+        containerElement.appendChild(titleInput)
+        this.titleInput = titleInput
+
+        const durationP = document.createElement('P')
+        durationP.innerText = "Ajouter un titre"
+        const durationInput = document.createElement('input')
+        containerElement.appendChild(durationP)
+        containerElement.appendChild(durationInput)
+        this.dureeInput = durationInput
+
+        return containerElement
+    }
+
     display() {
+        this.container.appendChild(this.titleAndDurationPart)
         this.container.appendChild(this.ingredientsPart)
         this.container.appendChild(this.recipeStepsPart)
     }
