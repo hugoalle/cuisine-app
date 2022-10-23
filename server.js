@@ -33,7 +33,7 @@ async function createRecette() {
     console.log(result)
 }
 
-createRecette();
+// createRecette();
 
 
 const app = express()
