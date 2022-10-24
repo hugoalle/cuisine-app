@@ -1,3 +1,6 @@
+import AddNewRecipeSuccessfulView from './AddRecipeSuccessfulView.js'
+import AddRecipeSuccessful from './AddRecipeSuccessfulView.js'
+
 export default class NewRecipeView {
     constructor(container) {
         this.container = container
@@ -158,6 +161,8 @@ export default class NewRecipeView {
 
         const jsonToSend = this.getJSONObjectFromInputField()
         // TO DO : Send data
+
+        new AddNewRecipeSuccessfulView(this.container).display()
 
     }
 
