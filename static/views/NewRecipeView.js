@@ -156,13 +156,29 @@ export default class NewRecipeView {
 
     validateClicked() {
 
-        this.emptyView()
-        this.emptyInput()
-
         const jsonToSend = this.getJSONObjectFromInputField()
-        // TO DO : Send data
+        fetch('/recipes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: jsonToSend
+        })
+            .then((response) => {
+                if (response.ok) {
+                    this.emptyView()
+                    this.emptyInput()
+                    new AddNewRecipeSuccessfulView(this.container).display()
 
-        new AddNewRecipeSuccessfulView(this.container).display()
+                    //TO DO add to database
+                }
+                else {
+                    console.log('fail to add recipe')
+                }
+
+            })
+
+
 
     }
 

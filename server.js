@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const exp = require('constants');
 
 mongoose.connect('mongodb://localhost/cuisine-kit')
     .then(() => console.log('connected to cuisine-kit database'))
@@ -37,10 +38,17 @@ async function createRecette() {
 
 
 const app = express()
+app.use(express.json())
 app.use(express.static(__dirname + '/static'));
 
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/static', '/index.html'));
 });
+
+app.post("/recipes", function (req, res) {
+
+    // res.end('recette ajoutee')
+    res.status(500).send('Something broke!');
+})
 
 app.listen(3000)
