@@ -1,14 +1,16 @@
 const express = require('express')
 const path = require('path');
 const mongoose = require('mongoose');
-const exp = require('constants');
 
 mongoose.connect('mongodb://localhost/cuisine-kit')
     .then(() => console.log('connected to cuisine-kit database'))
     .catch((err) => console.error('fail to connect to database', err))
 
+
+
+
 const recetteSchema = new mongoose.Schema({
-    titre: String, // String is shorthand for {type: String}
+    titre: { type: String, required: true },
     nbPart: Number,
     duree: String,
     ingredients: [{ ingredient: String, quantite: Number, unite: String }],
@@ -17,25 +19,17 @@ const recetteSchema = new mongoose.Schema({
 
 const RecetteClasse = mongoose.model('Recette', recetteSchema)
 
-async function createRecette() {
+async function ajouterRecette(json) {
 
-    const recette = new RecetteClasse({
-        titre: 'Crepe',
-        nbPart: 4,
-        duree: '50min',
-        ingredients: [
-            { ingredient: 'Farine', quantite: 200, unite: 'gramme' },
-            { ingredient: 'Lait', quantite: 500, unite: 'mL' },
-            { ingredient: 'Oeuf', quantite: 4, unite: '' }],
-        etapes: ['Mettre farine', 'mettre le reste', 'faire cuir']
-    })
+    const recette = new RecetteClasse(json)
 
-    const result = await recette.save()
-    console.log(result)
+    try {
+        const result = await recette.save()
+    }
+    catch (err) {
+        throw new Error(err)
+    }
 }
-
-// createRecette();
-
 
 const app = express()
 app.use(express.json())
@@ -47,8 +41,9 @@ app.get('/', function (req, res) {
 
 app.post("/recipes", function (req, res) {
 
-    // res.end('recette ajoutee')
-    res.status(500).send('Something broke!');
+    ajouterRecette(req.body)
+        .then(() => { res.status(200).send('recette bien ajoutee a la base') })
+        .catch((err) => { res.status(500).send(err) })
 })
 
 app.listen(3000)

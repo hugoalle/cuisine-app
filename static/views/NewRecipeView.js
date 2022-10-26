@@ -169,22 +169,19 @@ export default class NewRecipeView {
                     this.emptyView()
                     this.emptyInput()
                     new AddNewRecipeSuccessfulView(this.container).display()
-
-                    //TO DO add to database
                 }
                 else {
-                    console.log('fail to add recipe')
+                    console.log(response)
+                    alert('fail to add recipe')
                 }
 
             })
-
-
 
     }
 
     getJSONObjectFromInputField() {
         const obj = {}
-        obj.title = this.titleInput.value
+        obj.titre = this.titleInput.value
         obj.duree = this.dureeInput.value
         obj.nbPart = this.nbParInput.value
 
